@@ -14,19 +14,19 @@ The goal is:
 Obsidian vault:
 
 ```text
-/home/clawdbot/obsidian-vault
+~/obsidian-vault
 ```
 
 Daily Notes folder:
 
 ```text
-/home/clawdbot/obsidian-vault/Daily Notes
+~/obsidian-vault/Daily Notes
 ```
 
 Surface Later folder:
 
 ```text
-/home/clawdbot/obsidian-vault/Surface Later
+~/obsidian-vault/Surface Later
 ```
 
 ## Daily Notes Convention
