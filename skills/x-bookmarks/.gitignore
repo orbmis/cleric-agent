@@ -1,0 +1,7 @@
+# Never commit secrets or runtime state, even if pathed inside the skill folder.
+token.json
+state.json
+*.token.json
+*.state.json
+__pycache__/
+*.pyc
