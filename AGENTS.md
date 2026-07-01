@@ -234,6 +234,37 @@ That section should list possible items for promotion, including:
 
 The digest should not automatically create or edit `Surface Later/` files unless explicitly instructed.
 
+### X Bookmarks in the Digest
+
+The Friday digest also includes a section summarizing the week's new X (Twitter)
+bookmarks, produced by the `x-bookmarks` skill:
+
+```md
+## X bookmarks this week
+```
+
+Workflow:
+
+1. Run the skill to fetch new bookmarks since the last run:
+   `python3 skills/x-bookmarks/scripts/fetch_bookmarks.py --format json`
+2. Write the section from the returned JSON — one line per bookmark (author
+   handle, one-sentence gist, link), grouped loosely by theme. Keep it
+   low-friction, matching the Daily Notes tone.
+3. If `count` is 0, note that nothing new was bookmarked this week.
+
+Notes:
+
+- The skill **fetches only**; you write the summary. Never invent bookmarks or
+  links — use only what the JSON returned.
+- "New" means new **since the last digest run**, not a fixed 7-day window — the
+  X API doesn't expose when a tweet was bookmarked, only when it was authored.
+  Don't claim a time window the data can't support.
+- On a `403 ... user-context OAuth` error the refresh token is missing/revoked:
+  tell the user to re-run `skills/x-bookmarks/scripts/authorize.py` once. On a
+  `429`, skip the bookmarks section and continue the rest of the digest.
+- See `skills/x-bookmarks/SKILL.md` for full invocation details and
+  `skills/x-bookmarks/README.md` for one-time setup.
+
 ## Important Rules
 
 - Do not claim a saved precedent exists unless you searched and read the relevant note.
