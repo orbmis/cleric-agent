@@ -63,22 +63,27 @@ The goal is:
 
 ## Vault Paths
 
+The vault location is configured via the `OBSIDIAN_VAULT` variable in the
+repo-root `.env` file (copy `.env.example` to `.env` and set it). Resolve paths
+against it rather than hardcoding a location. If it is unset, fall back to
+`~/obsidian-vault`.
+
 Obsidian vault:
 
 ```text
-/home/clawdbot/obsidian-vault
+$OBSIDIAN_VAULT
 ```
 
 Daily Notes folder:
 
 ```text
-/home/clawdbot/obsidian-vault/Daily Notes
+$OBSIDIAN_VAULT/Daily Notes
 ```
 
 Surface Later folder:
 
 ```text
-/home/clawdbot/obsidian-vault/Surface Later
+$OBSIDIAN_VAULT/Surface Later
 ```
 
 ## Daily Notes Convention
