@@ -32,6 +32,8 @@ import urllib.parse
 import urllib.request
 import webbrowser
 
+from _env import load_dotenv
+
 AUTHORIZE_URL = "https://x.com/i/oauth2/authorize"
 TOKEN_URL = "https://api.x.com/2/oauth2/token"
 SCOPES = "bookmark.read tweet.read users.read offline_access"
@@ -77,6 +79,7 @@ def _catch_redirect(host: str, port: int, expected_state: str) -> str:
 
 
 def main(argv=None) -> int:
+    load_dotenv()  # populate os.environ from .env before reading config below
     parser = argparse.ArgumentParser(description="One-time X OAuth PKCE authorization.")
     parser.add_argument("--redirect-uri", default="http://localhost:8723/callback")
     parser.add_argument("--token-file", default=os.environ.get("X_TOKEN_FILE", DEFAULT_TOKEN_FILE))

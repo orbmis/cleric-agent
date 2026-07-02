@@ -30,6 +30,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from _env import load_dotenv
+
 TOKEN_URL = "https://api.x.com/2/oauth2/token"
 ME_URL = "https://api.x.com/2/users/me"
 BOOKMARKS_URL = "https://api.x.com/2/users/{user_id}/bookmarks"
@@ -236,6 +238,7 @@ def render_markdown(items: list[dict]) -> str:
 # Entry point                                                                  #
 # --------------------------------------------------------------------------- #
 def main(argv=None) -> int:
+    load_dotenv()  # populate os.environ from .env before reading config below
     parser = argparse.ArgumentParser(description="Fetch new X bookmarks since last run.")
     parser.add_argument("--format", choices=["json", "markdown"], default="json")
     parser.add_argument(

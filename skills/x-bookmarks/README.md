@@ -34,8 +34,19 @@ In the X developer portal, on your app:
 - Note the **Client ID** (and **Client Secret** for a confidential app).
 
 ### 2. Set environment variables
-The scripts read config from the environment (store real values in your secret
-store / gateway secrets, **not** in this repo):
+Config is read from the environment. The easiest way to set it is the repo-root
+`.env` file — copy the template and fill in your values:
+
+```bash
+cp .env.example .env   # from the repo root, then edit .env
+```
+
+Both scripts load `.env` automatically at startup (via `scripts/_env.py`, stdlib
+only — no dependency). Anything already exported in your shell or provided by a
+gateway secret store **takes precedence** over `.env`, so you can keep real
+secrets in a secret store and use `.env` only for local/dev. `.env` is
+git-ignored; never commit it. You can point the loader at a different file with
+`DOTENV_PATH=/path/to/file`.
 
 | Variable | Required | Purpose |
 |---|---|---|
@@ -44,11 +55,14 @@ store / gateway secrets, **not** in this repo):
 | `X_USER_ID` | optional | numeric user id; auto-resolved via `/users/me` if unset |
 | `X_TOKEN_FILE` | optional | refresh-token path (default `~/.config/openclaw/x-bookmarks/token.json`) |
 | `X_BOOKMARKS_STATE` | optional | state-file path (default `~/.config/openclaw/x-bookmarks/state.json`) |
+| `X_REFRESH_TOKEN` | optional | refresh token; normally lives in `X_TOKEN_FILE`, not here |
 
 ### 3. Authorize once (interactive, needs a browser)
+With `X_CLIENT_ID` set in `.env` (or the environment):
 ```bash
-X_CLIENT_ID=your_client_id python3 scripts/authorize.py
+python3 scripts/authorize.py
 ```
+Or pass it inline for a one-off: `X_CLIENT_ID=your_client_id python3 scripts/authorize.py`
 Approve access in the browser. The refresh token is written to `X_TOKEN_FILE`
 with `0600` perms. Keep that file secret.
 
@@ -130,6 +144,7 @@ currently scheduled — one job, one delivery, no second cron.
 | `SKILL.md` | the agent (auto) | how the agent invokes and interprets this skill |
 | `scripts/fetch_bookmarks.py` | agent / cron | refresh → fetch → diff → emit JSON/Markdown |
 | `scripts/authorize.py` | you, once | interactive OAuth to mint the refresh token |
+| `scripts/_env.py` | imported by both | loads the repo-root `.env` into the environment |
 
 ---
 
