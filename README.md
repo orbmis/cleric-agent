@@ -198,3 +198,8 @@ The digest should not automatically create or edit `Surface Later/` files unless
 - Do not store individual Surface Later insights in agent memory; Obsidian is the source of truth.
 - Prefer source-linked answers over unsourced recollection.
 - When citing an insight, include the Obsidian file path or note title.
+
+----
+
+⚠️ If you want to set this agent up yourself, remember to enter your name into `MEMORY.md` and `USER.md` as it's currently hardcoded to my name!
+
